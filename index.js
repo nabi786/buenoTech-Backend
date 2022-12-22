@@ -10,6 +10,8 @@ const cookieParser = require('cookie-parser')
 // global Middlewares
 // app.use(express.urlencoded({ extended: true }));
 // app.use(express.json())
+// working
+
 app.use(cors())
 app.use(morgan('dev'))
 
