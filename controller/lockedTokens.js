@@ -118,14 +118,26 @@ const searchTokenByAddress  = async (req,res)=>{
 
 
 
-// getLockedTokenDataByAddress
+// get locked token by walletAddress and chainID
 const getLockedTokenDataByAddress  = async (req,res)=>{
 
     try{
 
-        var tokens = await model.tokenLockInfo.find({tokenAddress : req.body.tokenAddress})
+        var tokens; 
+        if(!req.body.walletAddress || !req.body.chainID){
+
+            res.status(404).json({success : false, msg : "invalid Creditionals"})
+
+        }else{
+
+            tokens = await model.tokenLockInfo.find({walletAddress : req.body.walletAddress, chainID : req.body.chainID})
+        
+        }
     
         if(tokens){
+
+
+            
             
             res.status(200).json({success : true, data : tokens})
         }else{
