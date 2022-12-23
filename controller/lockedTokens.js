@@ -130,18 +130,26 @@ const getLockedTokenDataByAddress  = async (req,res)=>{
 
         }else{
 
-            tokens = await model.tokenLockInfo.find({walletAddress : req.body.walletAddress, chainID : req.body.chainID})
+
+
+            tokens = await model.tokenLockInfo.find({walletAddress : req.body.walletAddress, chainID : req.body.chainID, isLpToken : req.body.isLpToken})
         
         }
     
-        if(tokens){
+        var itemPerPage = req.body.itemPerPage;
+        var pageNum = req.body.pageNum;
+        // console.log("tokens",tokens)
+        if(tokens.length > 0){
+
+            var totalPages =  Math.ceil(tokens.length / itemPerPage)
 
 
+            filteredTokens = await model.tokenLockInfo.find({walletAddress : req.body.walletAddress, chainID : req.body.chainID, isLpToken : req.body.isLpToken}).skip((itemPerPage * pageNum) - itemPerPage).limit(itemPerPage)
             
-            
-            res.status(200).json({success : true, data : tokens})
+            res.status(200).json({success : true, data : filteredTokens, totalPages : totalPages, itemLength : filteredTokens.length})
+
         }else{
-            res.status(200).json({success : false, data : []})
+            res.status(200).json({success : false, data : [], msg : "no data found"})
         }
 
     }catch(err){
