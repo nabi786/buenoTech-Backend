@@ -3,7 +3,7 @@ require("./config/dataBase")
 const morgan = require("morgan")
 const express = require('express')
 const app = express();
-const PORT = process.env.PORT;
+const PORT = 3000 || process.env.PORT;
 const cors = require("cors");
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')

@@ -56,14 +56,26 @@ const getLockedTokens  = async (req,res)=>{
     try{
 
         console.log("this is body",req.body)
-            var tokens = await model.tokenLockInfo.find({chainID : req.body.chainID, isLpToken : req.body.isLpToken})
+        var tokens;
+            if(req.body.chainID == 0){
+                 tokens = await model.tokenLockInfo.find({isLpToken : req.body.isLpToken})
+            }else{
+                 tokens = await model.tokenLockInfo.find({chainID : req.body.chainID, isLpToken : req.body.isLpToken})
+            }
+
             var itemPerPage = req.body.itemPerPage;
             var pageNum = req.body.pageNum
             if(tokens.length > 0){
 
-                console.log(tokens)
+                console.log("these are tokens", tokens)
                 var totalPages =  Math.ceil(tokens.length / itemPerPage)
-                var filteredTokens = await model.tokenLockInfo.find({chainID : req.body.chainID, isLpToken : req.body.isLpToken}).skip((itemPerPage * pageNum) - itemPerPage).limit(itemPerPage)
+                
+                var filteredTokens;
+                if(req.body.chainID == 0){
+                     filteredTokens = await model.tokenLockInfo.find({isLpToken : req.body.isLpToken}).skip((itemPerPage * pageNum) - itemPerPage).limit(itemPerPage)
+                }else{
+                    filteredTokens = await model.tokenLockInfo.find({chainID : req.body.chainID, isLpToken : req.body.isLpToken}).skip((itemPerPage * pageNum) - itemPerPage).limit(itemPerPage)
+                }
                             
                 res.status(200).json({success : true, Data : filteredTokens, length : tokens.length, totalPages : totalPages})
                 
