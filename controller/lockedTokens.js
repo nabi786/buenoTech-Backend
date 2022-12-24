@@ -64,7 +64,7 @@ const getLockedTokens  = async (req,res)=>{
             }
 
 
-            tokens = tokens.reverse()
+            
             var itemPerPage = req.body.itemPerPage;
             var pageNum = req.body.pageNum
             if(tokens.length > 0){
@@ -79,7 +79,7 @@ const getLockedTokens  = async (req,res)=>{
                     filteredTokens = await model.tokenLockInfo.find({chainID : req.body.chainID, isLpToken : req.body.isLpToken}).skip((itemPerPage * pageNum) - itemPerPage).limit(itemPerPage)
                 }
                         
-                filteredTokens = filteredTokens.reverse()
+                
                 res.status(200).json({success : true, Data : filteredTokens, length : tokens.length, totalPages : totalPages})
                 
             }else{
@@ -88,7 +88,7 @@ const getLockedTokens  = async (req,res)=>{
 
         
     }catch(err){
-        console.log(err)
+        console.log()
         res.status(500).json({success : false, msg : 'something went wrong serverside'})
     }
 }
@@ -139,7 +139,7 @@ const getLockedTokenDataByAddress  = async (req,res)=>{
         
         }
         
-        tokens = tokens.reverse()
+        
         
         var itemPerPage = req.body.itemPerPage;
         var pageNum = req.body.pageNum;
@@ -155,7 +155,7 @@ const getLockedTokenDataByAddress  = async (req,res)=>{
             
             // filteredTokens = await model.tokenLockInfo.find({walletAddress : req.body.walletAddress, chainID : req.body.chainID, isLpToken : req.body.isLpToken}).skip((itemPerPage * pageNum) - itemPerPage).limit(itemPerPage)
             filteredTokens = await model.tokenLockInfo.find({walletAddress : req.body.walletAddress, chainID : req.body.chainID, isLpToken : req.body.isLpToken}).skip((itemPerPage*pageNum)-itemPerPage).limit(itemPerPage)
-            filteredTokens = filteredTokens.reverse()
+            
             console.log('filteredTokens',filteredTokens.length)
             res.status(200).json({success : true, data : filteredTokens, totalPages : totalPages, itemLength : tokens.length})
             
