@@ -76,10 +76,10 @@ const getLockedTokens  = async (req,res)=>{
                 if(req.body.chainID == 0){
                      filteredTokens = await model.tokenLockInfo.find({isLpToken : req.body.isLpToken}).skip((itemPerPage * pageNum) - itemPerPage).limit(itemPerPage)
                 }else{
-                    filteredTokens = await model.tokenLockInfo.find({chainID : req.body.chainID, isLpToken : req.body.isLpToken}).skip((itemPerPage * pageNum) - itemPerPage).limit(itemPerPage)
+                    filteredTokens = await model.tokenLockInfo.find({chainID : req.body.chainID, isLpToken : req.body.isLpToken}).sort({Date: -1}).skip((itemPerPage * pageNum) - itemPerPage).limit(itemPerPage)
                 }
                         
-                
+                    // console.log(filteredTokens)
                 res.status(200).json({success : true, Data : filteredTokens, length : tokens.length, totalPages : totalPages})
                 
             }else{
