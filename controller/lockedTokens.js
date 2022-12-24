@@ -125,27 +125,35 @@ const getLockedTokenDataByAddress  = async (req,res)=>{
 
         var tokens; 
         if(!req.body.walletAddress || !req.body.chainID){
-
+            
             res.status(404).json({success : false, msg : "invalid Creditionals"})
 
         }else{
-
+            
 
 
             tokens = await model.tokenLockInfo.find({walletAddress : req.body.walletAddress, chainID : req.body.chainID, isLpToken : req.body.isLpToken})
         
         }
-    
+        
+        
+        
         var itemPerPage = req.body.itemPerPage;
         var pageNum = req.body.pageNum;
         // console.log("tokens",tokens)
         if(tokens.length > 0){
-
-            var totalPages =  Math.ceil(tokens.length / itemPerPage)
-
-
-            filteredTokens = await model.tokenLockInfo.find({walletAddress : req.body.walletAddress, chainID : req.body.chainID, isLpToken : req.body.isLpToken}).skip((itemPerPage * pageNum) - itemPerPage).limit(itemPerPage)
             
+            var totalPages =  Math.ceil(tokens.length / itemPerPage)
+            
+            console.log('itemPerPage',itemPerPage)
+            console.log('pageNum',pageNum)
+            console.log('totalPages',totalPages)
+            console.log("itemPerPage*pageNum",(itemPerPage*pageNum)-itemPerPage)
+            
+            // filteredTokens = await model.tokenLockInfo.find({walletAddress : req.body.walletAddress, chainID : req.body.chainID, isLpToken : req.body.isLpToken}).skip((itemPerPage * pageNum) - itemPerPage).limit(itemPerPage)
+            filteredTokens = await model.tokenLockInfo.find({walletAddress : req.body.walletAddress, chainID : req.body.chainID, isLpToken : req.body.isLpToken}).skip((itemPerPage*pageNum)-itemPerPage).limit(itemPerPage)
+            
+            console.log('filteredTokens',filteredTokens.length)
             res.status(200).json({success : true, data : filteredTokens, totalPages : totalPages, itemLength : filteredTokens.length})
 
         }else{
