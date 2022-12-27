@@ -22,12 +22,17 @@ router.post('/searchSingleTokenByAddress', tokensObj.searchTokenByAddress);
 
 
 // get locked Tokens Data by address
-router.post('/getLockedSingleTokenDataByAddress', tokensObj.getLockedTokenDataByAddress);
+router.post('/getLockedSingleTokenDataByAddress', tokensObj.getLockedTokenDataByAddressAndChainID);
 
 
 
 // get locked tokens by wallet Address
 router.post('/getLockedTokensByWalletAddress', tokensObj.getLockedTokensByWalletAddress);
+
+
+
+
+router.post('/getTokensForListingPage', tokensObj.getTokensForListingPage);
 
 
 
