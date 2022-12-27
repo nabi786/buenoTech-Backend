@@ -317,7 +317,7 @@ const getAllTokenAddressUsingAddress = async(req,res)=>{
     if(tokens.length > 0){
         
         console.log('tokens', tokens)
-        res.status(404).json({success : false, Data : tokens, length : 0}) 
+        res.status(200).json({success : false, Data : tokens, length : 0}) 
     }else{
         res.status(404).json({success : false, Data : "no data found", length : 0}) 
     }
