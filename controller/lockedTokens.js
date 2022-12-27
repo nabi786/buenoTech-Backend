@@ -142,6 +142,47 @@ const getLockedTokenDataByAddressAndChainID  = async (req,res)=>{
             tokens = await model.tokenLockInfo.find({walletAddress : req.body.walletAddress, chainID : req.body.chainID, isLpToken : req.body.isLpToken})
         
         }
+
+
+        // workingHere
+
+         // get Data that has sameTokens
+         var tokenAddress = []
+         tokens.forEach((item,index)=>{
+             tokenAddress.push(item.tokenAddress)
+             
+         })
+ 
+         // get Unique items in aray 
+         var uniqueAry = tokenAddress.filter((v, i, a) => a.indexOf(v) === i);
+ 
+         console.log("tokens Array", uniqueAry)
+ 
+         var multPleAry= []
+         uniqueAry.forEach((item,index)=>{
+             var price = 0;
+             var tokenName = "";
+             var tokenSymbol = "";
+             tokens.forEach((item2,index)=>{
+                 if(item == item2.tokenAddress){
+                     var ary = [item2]
+                     price += Number(item2.total_Locked_Amount)
+                     tokenName = item2.tokenName
+                     tokenSymbol = item2.tokenSymbol
+                 }
+                 
+             })
+ 
+ 
+             multPleAry.push({tokenAddress : item, tokenName : tokenName, tokenSymbol : tokenSymbol, total_Locked_Amount : price})
+         })
+
+
+
+         tokens = multPleAry
+
+
+
         
         
         
@@ -152,16 +193,20 @@ const getLockedTokenDataByAddressAndChainID  = async (req,res)=>{
             
             var totalPages =  Math.ceil(tokens.length / itemPerPage)
             
-            console.log('itemPerPage',itemPerPage)
-            console.log('pageNum',pageNum)
-            console.log('totalPages',totalPages)
-            console.log("itemPerPage*pageNum",(itemPerPage*pageNum)-itemPerPage)
+
+
+             // function to get pagination
+            function paginate(array, page_size, page_number) {
+                // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
+                return array.slice((page_number - 1) * page_size, page_number * page_size);
+            }
+
+            var itemList = await paginate(tokens,itemPerPage, pageNum)
+
             
-            // filteredTokens = await model.tokenLockInfo.find({walletAddress : req.body.walletAddress, chainID : req.body.chainID, isLpToken : req.body.isLpToken}).skip((itemPerPage * pageNum) - itemPerPage).limit(itemPerPage)
-            filteredTokens = await model.tokenLockInfo.find({walletAddress : req.body.walletAddress, chainID : req.body.chainID, isLpToken : req.body.isLpToken}).skip((itemPerPage*pageNum)-itemPerPage).limit(itemPerPage)
-            
-            console.log('filteredTokens',filteredTokens.length)
-            res.status(200).json({success : true, data : filteredTokens, totalPages : totalPages, itemLength : tokens.length})
+
+
+            res.status(200).json({success : true, data : itemList, totalPages : totalPages, itemLength : tokens.length})
             
         }else{
             res.status(200).json({success : false, data : [], msg : "no data found"})
@@ -184,11 +229,14 @@ const getLockedTokensByWalletAddress  = async (req,res)=>{
 
     try{
 
+
         var tokens = await model.tokenLockInfo.find({walletAddress : req.body.walletAddress})
         
-        if(tokens){
+        if(tokens.length > 0){
 
-            const unique = [...new Map(tokens.map((m) => [m.tokenAddress, m])).values()];
+            
+             
+
 
             
             res.status(200).json({success : true, data : unique});
