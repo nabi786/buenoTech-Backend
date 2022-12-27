@@ -9,19 +9,13 @@ const tokensObj = require("../controller/lockedTokens")
 router.post("/LockedToken", tokensObj.LockedToken);
 
 
-// get all locked Tokens
-
-router.post('/getAllLockedTokens', tokensObj.getLockedTokens)
-
-
-
 // search token by Address
 router.post('/searchSingleTokenByAddress', tokensObj.searchTokenByAddress);
 
 
 
 
-// get locked Tokens Data by address
+// get locked Tokens Data by address (used on listing Page)
 router.post('/getLockedSingleTokenDataByAddress', tokensObj.getLockedTokenDataByAddressAndChainID);
 
 
@@ -37,6 +31,11 @@ router.post('/getTokensForListingPage', tokensObj.getTokensForListingPage);
 
 
 
+
+
+
+// get all tokens using token Address
+router.post('/getAllTokenAddressUsingAddress', tokensObj.getAllTokenAddressUsingAddress);
 
 
 

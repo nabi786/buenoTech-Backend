@@ -51,52 +51,6 @@ const LockedToken = async(req,res)=>{
 
 
 
-// get locked tokens
-const getLockedTokens  = async (req,res)=>{
-    try{
-
-        console.log("this is body",req.body)
-        var tokens;
-            if(req.body.chainID == 0){
-                 tokens = await model.tokenLockInfo.find({isLpToken : req.body.isLpToken})
-            }else{
-                 tokens = await model.tokenLockInfo.find({chainID : req.body.chainID, isLpToken : req.body.isLpToken})
-            }
-
-            
-
-
-            
-            var itemPerPage = req.body.itemPerPage;
-            var pageNum = req.body.pageNum
-            if(tokens.length > 0){
-
-                console.log("these are tokens", tokens)
-                var totalPages =  Math.ceil(tokens.length / itemPerPage)
-                
-                var filteredTokens;
-                if(req.body.chainID == 0){
-                     filteredTokens = await model.tokenLockInfo.find({isLpToken : req.body.isLpToken}).skip((itemPerPage * pageNum) - itemPerPage).limit(itemPerPage)
-                }else{
-                    filteredTokens = await model.tokenLockInfo.find({chainID : req.body.chainID, isLpToken : req.body.isLpToken}).sort({Date: -1}).skip((itemPerPage * pageNum) - itemPerPage).limit(itemPerPage)
-                }
-                        
-                    
-                
-                // console.log(filteredTokens)
-                res.status(200).json({success : true, Data : filteredTokens, length : tokens.length, totalPages : totalPages})
-                
-            }else{
-                res.status(404).json({success : false, Data : [], length : 0})
-            }
-
-        
-    }catch(err){
-        console.log()
-        res.status(500).json({success : false, msg : 'something went wrong serverside'})
-    }
-}
-
 
 
 
@@ -356,6 +310,22 @@ const getTokensForListingPage  = async (req,res)=>{
 
 
 
+const getAllTokenAddressUsingAddress = async(req,res)=>{
+
+    var tokens = await model.tokenLockInfo.find({tokenAddress : req.body.tokenAddress})
+
+    if(tokens.length > 0){
+        
+        console.log('tokens', tokens)
+        res.status(404).json({success : false, Data : tokens, length : 0}) 
+    }else{
+        res.status(404).json({success : false, Data : "no data found", length : 0}) 
+    }
+
+}
+
+
+
 
 
 
@@ -363,10 +333,11 @@ const getTokensForListingPage  = async (req,res)=>{
 
 // making object to export uisng moduel
 const tokensObj = {
-    LockedToken,getLockedTokens,
+    LockedToken,
     searchTokenByAddress,
     getLockedTokenDataByAddressAndChainID,
-    getLockedTokensByWalletAddress,getTokensForListingPage
+    getLockedTokensByWalletAddress,getTokensForListingPage,
+    getAllTokenAddressUsingAddress
 }
 
 
