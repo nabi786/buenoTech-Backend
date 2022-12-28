@@ -48,13 +48,13 @@ const schema = new mongoose.Schema({
     TGE_Date : {
         type : String
     },
-    cycle_Minutes : {
-        type : String,
-    },
-    cycle_Relase : {
+    tGE_Percentage : {
         type : String
     },
-    tGE_Percentage : {
+    cycle_Days : {
+        type : String,
+    },
+    cycle_ReleasePercentage : {
         type : String
     },
     network : {

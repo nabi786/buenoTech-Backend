@@ -17,9 +17,9 @@ const LockedToken = async(req,res)=>{
             Lock_Date : req.body.Lock_Date,
             unLock_Date : req.body.unLock_Date,
             TGE_Date : req.body.TGE_Date,
-            cycle_Minutes : req.body.cycle_Minutes,
-            cycle_Relase : req.body.cycle_Relase,
             tGE_Percentage : req.body.tGE_Percentage,
+            cycle_Days : req.body.cycle_Days,
+            cycle_ReleasePercentage : req.body.cycle_ReleasePercentage,
             network : req.body.network,
             chainID : req.body.chainID,
             tokenName : req.body.tokenName,
@@ -32,7 +32,7 @@ const LockedToken = async(req,res)=>{
         await lockModel.save();
         res.status(200).json({msg : "locked token added Successfully", success : true})
     } catch (error) {
-
+            console.log("this is error", error)
         res.status(500).json({msg : "something went wrong", success : false})
     }
 }
