@@ -41,4 +41,11 @@ router.post('/getAllTokenAddressUsingAddress', tokensObj.getAllTokenAddressUsing
 
 
 
+
+router.post('/getTokenByID', tokensObj.getTokenByID);
+
+
+
+
+
 module.exports = router

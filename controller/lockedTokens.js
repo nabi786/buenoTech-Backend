@@ -331,13 +331,46 @@ const getAllTokenAddressUsingAddress = async(req,res)=>{
 
 
 
+
+// get token by ID
+const getTokenByID  = async(req,res)=>{
+
+    try{
+
+
+    var tokens = await model.tokenLockInfo.find({_id : req.body.id})
+
+    if(tokens.length > 0){
+            
+            console.log('tokens', tokens)
+            res.status(200).json({success : false, Data : tokens, }) 
+        }else{
+            res.status(404).json({success : false, Data : "no data found",}) 
+        }
+       
+        
+    }catch(err){
+        res.status(500).json({success : false, msg : "somethign went wrong in server"}) 
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
 // making object to export uisng moduel
 const tokensObj = {
     LockedToken,
     searchTokenByAddress,
     getLockedTokenDataByAddressAndChainID,
     getLockedTokensByWalletAddress,getTokensForListingPage,
-    getAllTokenAddressUsingAddress
+    getAllTokenAddressUsingAddress,getTokenByID
 }
 
 
