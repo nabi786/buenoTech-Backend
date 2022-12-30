@@ -69,6 +69,9 @@ const schema = new mongoose.Schema({
         type : Boolean,
         'default': "false"
     },
+    lockID : {
+        type : String,
+    },
     Date: {type: Date, 'default': Date.now}
 })
 

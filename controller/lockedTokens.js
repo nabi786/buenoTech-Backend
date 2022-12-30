@@ -25,7 +25,8 @@ const LockedToken = async(req,res)=>{
             tokenName : req.body.tokenName,
             tokenSymbol : req.body.tokenSymbol,
             tokenDecimal : req.body.tokenDecimal,
-            isLpToken : req.body.isLpToken
+            isLpToken : req.body.isLpToken,
+            lockID : req.body.lockID
         })
 
 
