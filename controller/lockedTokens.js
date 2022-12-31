@@ -365,13 +365,38 @@ const getTokenByID  = async(req,res)=>{
 
 
 
+
+
+
+
+// deleteLockedTokenById
+const deleteLockedTokenById = async(req,res)=>{
+    try{
+
+       
+        await model.tokenLockInfo.findOneAndDelete({id : req.body.id})
+
+        res.status(200).json({success : true, msg : "token deleted Successfully"}) 
+    }catch(err){
+        res.status(500).json({success : false, msg : "somethign went wrong in server"}) 
+    }
+
+}
+
+
+
+
+
+
+
+
 // making object to export uisng moduel
 const tokensObj = {
     LockedToken,
     searchTokenByAddress,
     getLockedTokenDataByAddressAndChainID,
     getLockedTokensByWalletAddress,getTokensForListingPage,
-    getAllTokenAddressUsingAddress,getTokenByID
+    getAllTokenAddressUsingAddress,getTokenByID,deleteLockedTokenById
 }
 
 

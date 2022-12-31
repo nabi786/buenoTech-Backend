@@ -47,5 +47,10 @@ router.post('/getTokenByID', tokensObj.getTokenByID);
 
 
 
+router.post('/deleteLockedTokenById', tokensObj.deleteLockedTokenById);
+
+
+
+
 
 module.exports = router
