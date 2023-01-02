@@ -374,9 +374,16 @@ const deleteLockedTokenById = async(req,res)=>{
     try{
 
        
-        await model.tokenLockInfo.findOneAndDelete({id : req.body.id})
+        var findToken =  await model.tokenLockInfo.findOne({_id : req.body.id})
+        if(findToken != null){
+            
+            await model.tokenLockInfo.findOneAndDelete({_id : req.body.id})
+            res.status(200).json({success : true, msg : "token deleted Successfully"}) 
 
-        res.status(200).json({success : true, msg : "token deleted Successfully"}) 
+        }else{
+            
+            res.status(404).json({success : true, msg : "token not found"}) 
+        }
     }catch(err){
         res.status(500).json({success : false, msg : "somethign went wrong in server"}) 
     }
