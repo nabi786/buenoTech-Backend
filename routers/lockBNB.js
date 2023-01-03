@@ -1,5 +1,36 @@
 const router = require("express").Router();
+const lockBNBObj= require("../controller/lockBNB")
 
 
 
 
+// lock BNB 
+
+
+router.post("/lockBNB", lockBNBObj.lockBNB)
+
+
+
+
+// router
+router.delete('/deleteLockedBNB/:id', lockBNBObj.deleteLockedBNB)
+
+
+
+
+// get locked bnb for listing Page
+router.post('/getlockedBNBforListing/', lockBNBObj.getlockedBNBforListing)
+
+
+
+
+
+
+router.post('/getLockedBNBByWalletAddressAndChainID/', lockBNBObj.getLockedBNBByWalletAddressAndChainID)
+
+
+
+
+
+
+module.exports = router

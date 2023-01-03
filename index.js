@@ -28,12 +28,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // API Routes
 const indexRout = require('./routers/index')
 const LockToken = require('./routers/LockToken')
+const LockBNB = require('./routers/lockBNB')
 
 
 
 // using router as a global middleware
 app.use(indexRout);
 app.use("/api",LockToken);
+app.use("/api",LockBNB);
 
 
 
