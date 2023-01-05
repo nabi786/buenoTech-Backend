@@ -94,11 +94,13 @@ const getLockedTokenDataByAddressAndChainID  = async (req,res)=>{
             
 
 
-            tokens = await model.tokenLockInfo.find({walletAddress : req.body.walletAddress, chainID : req.body.chainID, isLpToken : req.body.isLpToken})
+            tokens = await model.tokenLockInfo.find({walletAddress : req.body.walletAddress, chainID : req.body.chainID})
         
         }
 
 
+
+        console.log('these are toen ', tokens)
         // workingHere
 
          // get Data that has sameTokens
@@ -223,16 +225,13 @@ const getLockedTokensByWalletAddress  = async (req,res)=>{
 const getTokensForListingPage  = async (req,res)=>{
     try{
 
-        console.log("this is body",req.body)
-        var tokens;
-            if(req.body.chainID == 0){
-                 tokens = await model.tokenLockInfo.find({isLpToken : req.body.isLpToken})
-            }else{
-                 tokens = await model.tokenLockInfo.find({chainID : req.body.chainID, isLpToken : req.body.isLpToken})
-            }
+        // console.log("this is body",req.body)
+
+        
 
 
-
+        var tokens= tokens = await model.tokenLockInfo.find({chainID : req.body.chainID});
+        
 
         
             // get Data that has sameTokens
