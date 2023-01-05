@@ -100,7 +100,7 @@ const getLockedTokenDataByAddressAndChainID  = async (req,res)=>{
 
 
 
-        console.log('these are toen ', tokens)
+        // console.log('these are toen ', tokens)
         // workingHere
 
          // get Data that has sameTokens

@@ -297,6 +297,50 @@ const getLockedBNBByWalletAddressAndChainID = async(req,res)=>{
 
 
 
+// get lcoked all Locked BNB 
+
+const getAllLockedBNBBYWalletAddres= async(req,res)=>{
+    try{
+
+
+        var lockedData = await model.bnbLockInfo.find({walletAddress : req.body.walletAddress})
+        
+        if(lockedData.length > 0){
+
+            
+
+            res.status(200).json({success : true, data:lockedData})
+
+        }else{
+
+            res.status(404).json({success : false, data:[]})
+        
+        }
+
+
+
+
+
+    }catch(err){
+        res.status(500).json({success :  false, msg : "something went wrong"})
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -306,7 +350,8 @@ const lockBNBObj={
     lockBNB,
     deleteLockedBNB,
     getlockedBNBforListing,
-    getLockedBNBByWalletAddressAndChainID
+    getLockedBNBByWalletAddressAndChainID,
+    getAllLockedBNBBYWalletAddres
 }
 
 

@@ -26,7 +26,12 @@ router.post('/getlockedBNBforListing/', lockBNBObj.getlockedBNBforListing)
 
 
 
-router.post('/getLockedBNBByWalletAddressAndChainID/', lockBNBObj.getLockedBNBByWalletAddressAndChainID)
+router.post('/getLockedBNBByWalletAddressAndChainID', lockBNBObj.getLockedBNBByWalletAddressAndChainID)
+
+
+
+
+router.post('/getAllLockedBNBBYWalletAddres', lockBNBObj.getAllLockedBNBBYWalletAddres)
 
 
 
