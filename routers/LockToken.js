@@ -53,4 +53,15 @@ router.post('/deleteLockedTokenById', tokensObj.deleteLockedTokenById);
 
 
 
+router.patch('/updateLockeToken', tokensObj.updateLockeToken);
+
+
+
+
+
+
+
+
+
+
 module.exports = router

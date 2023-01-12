@@ -44,4 +44,12 @@ router.post('/getLockedBNbById', lockBNBObj.getLockedBNBByID)
 
 
 
+
+
+
+
+
+
+
+
 module.exports = router

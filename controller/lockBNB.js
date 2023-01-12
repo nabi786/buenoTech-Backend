@@ -381,13 +381,27 @@ const getLockedBNBByID = async(req,res)=>{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 const lockBNBObj={
     lockBNB,
     deleteLockedBNB,
     getlockedBNBforListing,
     getLockedBNBByWalletAddressAndChainID,
     getAllLockedBNBBYWalletAddres,
-    getLockedBNBByID
+    getLockedBNBByID,
+    deleteLockedBNB
 }
 
 

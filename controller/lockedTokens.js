@@ -398,13 +398,46 @@ const deleteLockedTokenById = async(req,res)=>{
 
 
 
+
+
+// updated lcoked token
+
+const updateLockeToken = async (req,res)=>{
+    try{
+
+        var findToken = await model.tokenLockInfo.find({_id : req.body.id})
+        
+        if(findToken){
+            
+            await model.tokenLockInfo.findOneAndUpdate({_id : req.body.id}, req.body)
+            res.status(200).json({success : true, msg :"token updated successfully"})
+        }else{
+
+            res.status(404).json({success : false, msg :"no any token found"})
+        }
+
+    }catch(err){
+        console.log(err)
+        res.status(200).json({success : false, msg : "something went rong"})
+    }
+}
+
+
+
+
+
+
+
+
+
 // making object to export uisng moduel
 const tokensObj = {
     LockedToken,
     searchTokenByAddress,
     getLockedTokenDataByAddressAndChainID,
     getLockedTokensByWalletAddress,getTokensForListingPage,
-    getAllTokenAddressUsingAddress,getTokenByID,deleteLockedTokenById
+    getAllTokenAddressUsingAddress,getTokenByID,deleteLockedTokenById,
+    updateLockeToken
 }
 
 
