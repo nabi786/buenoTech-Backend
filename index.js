@@ -29,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const indexRout = require('./routers/index')
 const LockToken = require('./routers/LockToken')
 const LockBNB = require('./routers/lockBNB')
+const serviceFee = require('./routers/servicesFees')
 
 
 
@@ -36,6 +37,7 @@ const LockBNB = require('./routers/lockBNB')
 app.use(indexRout);
 app.use("/api",LockToken);
 app.use("/api",LockBNB);
+app.use("/api",serviceFee);
 
 
 

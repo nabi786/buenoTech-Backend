@@ -153,9 +153,47 @@ const schema2 = new mongoose.Schema({
 
 
 
+
+
+
+
+
+// Services Fees 
+const schema3 = new mongoose.Schema({
+        FlatFee : {
+            type : String,
+            required : true
+        },
+        VariableFee : {
+            type :  String,
+            required : true
+        },
+        payPerUse : {
+            type : String,
+            required : true
+        },
+        monthly : {
+            type : String,
+        },
+        yearly : {
+            type : String
+        }
+})
+
+
+
+
+
+
+
+
+
+
+
 // Locked TokenSchema
 const tokenLockInfo = mongoose.model('tokenLockedInfo', schema)
 const bnbLockInfo = mongoose.model('bnbLockedInfo', schema2)
+const generateWalletsFee = mongoose.model('servicesFee', schema3)
 
 
 
@@ -166,7 +204,15 @@ const bnbLockInfo = mongoose.model('bnbLockedInfo', schema2)
 const modles = {
     tokenLockInfo: tokenLockInfo,
     bnbLockInfo: bnbLockInfo,
+    generateWalletsFee:generateWalletsFee
 }
+
+
+
+
+
+
+
 
 
 
