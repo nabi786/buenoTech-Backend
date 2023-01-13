@@ -233,7 +233,8 @@ const getTokensForListingPage  = async (req,res)=>{
         var tokens= tokens = await model.tokenLockInfo.find({chainID : req.body.chainID});
         
 
-        
+                tokens.reverse()
+
             // get Data that has sameTokens
             var tokenAddress = []
             tokens.forEach((item,index)=>{
