@@ -66,7 +66,6 @@ const filterTokenByTokenAddress  = async (req,res)=>{
 
 
 
-        console.log(tokens)
         if(tokens != null){
 
               // get Data that has sameTokens

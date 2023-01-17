@@ -45,6 +45,10 @@ router.post('/getLockedBNbById', lockBNBObj.getLockedBNBByID)
 
 
 
+// fintere locked BNB 
+
+router.post('/filtereLockedBNB', lockBNBObj.filtereLockedBNB)
+
 
 
 

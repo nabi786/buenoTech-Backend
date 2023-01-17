@@ -383,6 +383,82 @@ const getLockedBNBByID = async(req,res)=>{
 
 
 
+// filtered locked bnb
+
+const filtereLockedBNB= async(req,res)=>{
+    try{
+        
+        var bnbInfo = await model.bnbLockInfo.find({walletAddress : req.body.walletAddress, chainID : req.body.chainID})
+
+
+        if(bnbInfo != null){
+
+            var data = bnbInfo
+
+            var walletAddress = []
+            data.forEach((item,index)=>{
+                walletAddress.push(item.walletAddress)
+                            
+            })
+                
+            // get Unique items in aray 
+            var uniqueAry = walletAddress.filter((v, i, a) => a.indexOf(v) === i);
+
+            console.log('this is uniq Ary', uniqueAry)
+
+
+
+            var multPleAry= []
+            uniqueAry.forEach((item,index)=>{
+                var price = 0;
+                var chainID = "";
+                var network = "";
+                data.forEach((item2,index)=>{
+                    if(item == item2.walletAddress){
+                        price += Number(item2.total_Locked_Amount)
+                        chainID = item2.chainID
+                        network = item2.network
+                    }
+                    
+                })
+    
+    
+                multPleAry.push({walletAddress : item, total_Locked_Amount : price, chainID : chainID, network: network})
+            })
+
+
+
+            data = multPleAry
+
+
+
+
+
+            res.status(200).json({success : true,data : data})
+        }else{
+            res.status(200).json({success : true,data : []})
+            
+        }
+
+
+    }catch(err){
+        res.status(500).json({success : false,msg : "something went wrong"})
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -401,7 +477,8 @@ const lockBNBObj={
     getLockedBNBByWalletAddressAndChainID,
     getAllLockedBNBBYWalletAddres,
     getLockedBNBByID,
-    deleteLockedBNB
+    deleteLockedBNB,
+    filtereLockedBNB
 }
 
 
