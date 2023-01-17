@@ -10,7 +10,7 @@ router.post("/LockedToken", tokensObj.LockedToken);
 
 
 // search token by Address
-router.post('/searchSingleTokenByAddress', tokensObj.searchTokenByAddress);
+router.post('/filterTokenByTokenAddress', tokensObj.filterTokenByTokenAddress);
 
 
 

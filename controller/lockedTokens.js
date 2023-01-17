@@ -58,19 +58,72 @@ const LockedToken = async(req,res)=>{
 
 
 // searchToken by token address
-const searchTokenByAddress  = async (req,res)=>{
+const filterTokenByTokenAddress  = async (req,res)=>{
     try{
 
-        var tokens = await model.tokenLockInfo.findOne({tokenAddress : req.body.tokenAddress})
-        console.log('this is token', tokens)
-        if(tokens){
-            console.log(tokens.length)
-            res.status(200).json({success : true, data : tokens})
+        var tokens = await model.tokenLockInfo.find({tokenAddress : req.body.tokenAddress, chainID : req.body.chainID})
+        // console.log('this is token', tokens)
+
+
+
+        console.log(tokens)
+        if(tokens != null){
+
+              // get Data that has sameTokens
+         var tokenAddress = []
+         tokens.forEach((item,index)=>{
+             tokenAddress.push(item.tokenAddress)
+             
+         })
+ 
+         // get Unique items in aray 
+         var uniqueAry = tokenAddress.filter((v, i, a) => a.indexOf(v) === i);
+ 
+         console.log("tokens Array", uniqueAry)
+ 
+         var multPleAry= []
+         uniqueAry.forEach((item,index)=>{
+             var price = 0;
+             var tokenName = "";
+             var tokenSymbol = "";
+             tokens.forEach((item2,index)=>{
+                 if(item == item2.tokenAddress){
+                     var ary = [item2]
+                     price += Number(item2.total_Locked_Amount)
+                     tokenName = item2.tokenName
+                     tokenSymbol = item2.tokenSymbol
+                 }
+                 
+             })
+ 
+ 
+             multPleAry.push({tokenAddress : item, tokenName : tokenName, tokenSymbol : tokenSymbol, total_Locked_Amount : price})
+         })
+
+
+
+         tokens = multPleAry
+
+
+
+
+
+
+        res.status(200).json({success : true, data : tokens})
+
+
+
+            
+
         }else{
+
             res.status(200).json({success : false, data : []})
+        
+        
         }
 
     }catch(err){
+        console.log('this is err', err)
         res.status(500).json({success : false, msg : 'something went wrong serverside'})
     }
 
@@ -434,7 +487,7 @@ const updateLockeToken = async (req,res)=>{
 // making object to export uisng moduel
 const tokensObj = {
     LockedToken,
-    searchTokenByAddress,
+    filterTokenByTokenAddress,
     getLockedTokenDataByAddressAndChainID,
     getLockedTokensByWalletAddress,getTokensForListingPage,
     getAllTokenAddressUsingAddress,getTokenByID,deleteLockedTokenById,
