@@ -459,6 +459,25 @@ const filtereLockedBNB= async(req,res)=>{
 
 
 
+// updated locked bNB
+
+const updatedLockedBNB = async(req,res)=>{
+    try{
+
+        
+        await await model.bnbLockInfo.findOneAndUpdate({_id : req.body.id}, req.body)
+
+        res.status(200).json({succeess : true, msg : "bnb updated successfully"})
+        
+    }catch(err){
+        
+        res.status(500).json({succeess : false, msg : "something went wrong"})
+    }
+}
+
+
+
+
 
 
 
@@ -478,7 +497,8 @@ const lockBNBObj={
     getAllLockedBNBBYWalletAddres,
     getLockedBNBByID,
     deleteLockedBNB,
-    filtereLockedBNB
+    filtereLockedBNB,
+    updatedLockedBNB
 }
 
 

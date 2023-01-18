@@ -56,4 +56,10 @@ router.post('/filtereLockedBNB', lockBNBObj.filtereLockedBNB)
 
 
 
+router.patch("/updatedLockedBNB", lockBNBObj.updatedLockedBNB)
+
+
+
+
+
 module.exports = router
