@@ -135,7 +135,8 @@ const schema2 = new mongoose.Schema({
     },
     lockID : {
         type : String,
-    }
+    },
+    Date: {type: Date, 'default': Date.now}
 })
 
 
