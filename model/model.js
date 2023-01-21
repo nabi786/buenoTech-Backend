@@ -186,6 +186,28 @@ const schema3 = new mongoose.Schema({
 
 
 
+// adminData
+
+const schema4 = new mongoose.Schema({
+    firstName : {
+    type : String
+    },
+    lastName : {
+        type: String
+    },
+    email : {
+        type: String,
+        required : true
+    },
+    password : {
+        type : String,
+        required : true
+    },
+    Date: {type: Date, 'default': Date.now}
+})
+
+
+
 
 
 
@@ -195,6 +217,7 @@ const schema3 = new mongoose.Schema({
 const tokenLockInfo = mongoose.model('tokenLockedInfo', schema)
 const bnbLockInfo = mongoose.model('bnbLockedInfo', schema2)
 const generateWalletsFee = mongoose.model('servicesFee', schema3)
+const adminData = mongoose.model('Admin', schema4)
 
 
 
@@ -205,7 +228,8 @@ const generateWalletsFee = mongoose.model('servicesFee', schema3)
 const modles = {
     tokenLockInfo: tokenLockInfo,
     bnbLockInfo: bnbLockInfo,
-    generateWalletsFee:generateWalletsFee
+    generateWalletsFee:generateWalletsFee,
+    adminData:adminData
 }
 
 

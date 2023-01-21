@@ -30,7 +30,7 @@ const indexRout = require('./routers/index')
 const LockToken = require('./routers/LockToken')
 const LockBNB = require('./routers/lockBNB')
 const serviceFee = require('./routers/servicesFees')
-
+const AdminLoing = require("./routers/adminLong")
 
 
 // using router as a global middleware
@@ -38,6 +38,9 @@ app.use(indexRout);
 app.use("/api",LockToken);
 app.use("/api",LockBNB);
 app.use("/api",serviceFee);
+app.use("/api",AdminLoing);
+
+
 
 
 
