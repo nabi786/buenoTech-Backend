@@ -77,7 +77,7 @@ const adminLogin = async(req,res)=>{
 
     }catch(err){
         console.log('this is err', err)
-        res.status(200).json({success:false, msg : "something went wrong in server"})
+        res.status(500).json({success:false, msg : "something went wrong in server"})
     }
 }
 
