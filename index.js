@@ -1,4 +1,5 @@
 require('dotenv').config()
+const { MongoClient } = require('mongodb');
 require("./config/dataBase")
 const morgan = require("morgan")
 const express = require('express')
@@ -11,6 +12,12 @@ const cookieParser = require('cookie-parser')
 // app.use(express.urlencoded({ extended: true }));
 // app.use(express.json())
 // working
+
+
+const uri = process.env.dataBase;
+const client = new MongoClient(uri);
+
+
 
 app.use(cors())
 app.use(morgan('dev'))
@@ -55,6 +62,15 @@ app.get("*", (req,res)=>{
 
 
 
-app.listen(PORT, () => {
-        console.log(`server started successfully on PORT Number ${PORT}`)
-    })
+
+
+
+
+client.connect(err => {
+
+    if(err){ console.error(err); return false;}
+    app.listen(PORT, () => {
+            console.log(`server started successfully on PORT Number ${PORT}`)
+        })
+
+});
