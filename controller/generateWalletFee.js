@@ -27,7 +27,7 @@ const generateWalletfeePostmethod  = async (req,res)=>{
 
         await newFee.save();
 
-        res.status(200).json({success : true , msg : "Generatewallet fee Generated"})
+        res.status(200).json({success : true , msg : "fee Generated"})
 
     }catch(err){
         console.log('this si error', err)
