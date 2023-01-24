@@ -97,7 +97,7 @@ const getGeneratedWalletFee = async(req,res)=>{
         if(genGeneratedWalletFee != null){
 
             
-            res.status(200).json({success : true , generatedFee : genGeneratedWalletFee})
+            res.status(200).json({success : true , generatedFee : genGeneratedWalletFee[0]})
         }else{
             res.status(404).json({success : false , msg : "not generated Fee Found"})
         }
