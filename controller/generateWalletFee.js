@@ -13,11 +13,19 @@ const generateWalletfeePostmethod  = async (req,res)=>{
     try{
 
 
+
+    
         // generateing new fee
-        var payPerUse = Number(req.body.flatFee) + Number(req.body.variableFee);
+        var flatFee = req.body.flatFee
+        console.log('this is falt fee',flatFee )
+        var variableFee = req.body.variableFee
+        console.log('this is variableFee fee',variableFee )
+        var payPerUse = flatFee+variableFee
+        console.log('this is payPerUse fee',payPerUse)
+
         var newFee = new model.generateWalletsFee({
-            FlatFee : req.body.flatFee,
-            VariableFee : req.body.variableFee,
+            FlatFee : flatFee,
+            VariableFee : variableFee,
             payPerUse   : payPerUse
         })
 
