@@ -61,6 +61,9 @@ const adminLogin = async(req,res)=>{
 
 
                 console.log('this is secretKey', token)
+
+
+                findAccountWithEmail.password = "-"
                 
                 res.status(404).json({success : true, data:findAccountWithEmail, token: token})
             }else{
