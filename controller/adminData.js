@@ -65,8 +65,9 @@ const adminLogin = async(req,res)=>{
 
                 findAccountWithEmail.password = "-"
                 
-                res.status(404).json({success : true, data:findAccountWithEmail, token: token})
+                res.status(200).json({success : true, data:findAccountWithEmail, token: token})
             }else{
+
                 res.status(404).json({success : false, msg : 'invalid email or password'})
             }
             
@@ -75,8 +76,6 @@ const adminLogin = async(req,res)=>{
             res.status(404).json({success : false, msg : "invalid email or password", data:[]})
         }
 
-
-        
 
     }catch(err){
         console.log('this is Error', err)
