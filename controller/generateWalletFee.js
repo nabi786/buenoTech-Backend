@@ -26,16 +26,27 @@ const generateWalletfeePostmethod  = async (req,res)=>{
         var newFee = new model.generateWalletsFee({
             FlatFee : flatFee,
             VariableFee : variableFee,
+            monthly: req.body.month,
+            yearly : req.body.year,
             payPerUse   : payPerUse
         })
 
 
 
+        var genGeneratedWalletFee = await model.generateWalletsFee.find()
+
+        if(genGeneratedWalletFee.length>0){
+
+            res.status(200).json({success : false , msg : "Fee already Generated"})
+        
+        }else{
+        
+            await newFee.save();
+            res.status(200).json({success : true , msg : "fee Generated"})
+       
+        }
 
 
-        await newFee.save();
-
-        res.status(200).json({success : true , msg : "fee Generated"})
 
     }catch(err){
         console.log('this si error', err)
