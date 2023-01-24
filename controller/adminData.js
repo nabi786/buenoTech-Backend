@@ -19,7 +19,7 @@ const registerAdmin = async(req,res)=>{
             var hashedPass = await bcrypt.hash(password, 10);
             console.log('this is hashed password', hashedPass)
             var lockModel = new model.adminData({
-                firstName : email,
+                firstName : req.body.fname,
                 lastName : req.body.lname,
                 email :req.body.email,
                 password : hashedPass

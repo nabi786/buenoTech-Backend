@@ -68,12 +68,32 @@ const generateWalletfeePostmethod  = async (req,res)=>{
 const generateWalletFee = async(req, res)=>{
     try{
 
-        await model.generateWalletsFee.findOneAndUpdate({_id : req.body.id}, req.body)
+      var flatFee = req.body.FlatFee
+      var variableFee = req.body.VariableFee
+      var monthly = req.body.monthly
+      var yearly = req.body.yearly
+
+      var payPeruse =  variableFee+flatFee
+
+
+        await model.generateWalletsFee.findOneAndUpdate({_id : req.body.id}, {
+            FlatFee : flatFee,
+            VariableFee : variableFee,
+            payPerUse : payPeruse,
+            monthly : monthly,
+            yearly : yearly
+        });
+
         res.status(200).json({success : true, msg : "fee updated successfully"})
     }catch(err){
         res.status(500).json({success : false , msg : "something went wrong in server"})
     }
 }
+
+
+
+
+
 
 
 
