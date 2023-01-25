@@ -213,6 +213,19 @@ const schema4 = new mongoose.Schema({
 
 
 
+
+// generwate Walltes
+
+
+
+
+
+
+
+
+
+
+
 // Locked TokenSchema
 const tokenLockInfo = mongoose.model('tokenLockedInfo', schema)
 const bnbLockInfo = mongoose.model('bnbLockedInfo', schema2)
