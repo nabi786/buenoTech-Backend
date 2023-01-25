@@ -3,7 +3,7 @@
 
 
 
-const generateWallets = async()=>{
+const generateWallets = async(req,res)=>{
     try{
 
 
