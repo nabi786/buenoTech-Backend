@@ -1,28 +1,7 @@
-
 const router = require("express").Router();
 
-const wallets= require("../controller/generateWallets")
+const wallets = require("../controller/generateWallets");
 
+router.post("/generateWallets", wallets.generateWallets);
 
-
-
-
-router.get("/generateWallets", wallets.generateWallets)
-
-
-
-
-
-
-
-module.exports = router
-
-
-
-
-
-
-
-
-
-
+module.exports = router;
