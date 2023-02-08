@@ -70,6 +70,10 @@ const schema = new mongoose.Schema({
   lockID: {
     type: String,
   },
+  isTokenUnlocked: {
+    type: String,
+    default: false,
+  },
   Date: { type: Date, default: Date.now },
 });
 
@@ -122,19 +126,15 @@ const schema2 = new mongoose.Schema({
   lockID: {
     type: String,
   },
+  isBNBUnLocked: {
+    type: String,
+    default: false,
+  },
   Date: { type: Date, default: Date.now },
 });
 
 // Services Fees
 const schema3 = new mongoose.Schema({
-  FlatFee: {
-    type: String,
-    required: true,
-  },
-  VariableFee: {
-    type: String,
-    required: true,
-  },
   payPerUse: {
     type: String,
     required: true,
