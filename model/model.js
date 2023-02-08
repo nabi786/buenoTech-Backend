@@ -71,7 +71,7 @@ const schema = new mongoose.Schema({
     type: String,
   },
   isTokenUnlocked: {
-    type: String,
+    type: Boolean,
     default: false,
   },
   Date: { type: Date, default: Date.now },
@@ -127,7 +127,7 @@ const schema2 = new mongoose.Schema({
     type: String,
   },
   isBNBUnLocked: {
-    type: String,
+    type: Boolean,
     default: false,
   },
   Date: { type: Date, default: Date.now },
