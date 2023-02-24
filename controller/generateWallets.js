@@ -5,74 +5,86 @@ const abi = require("../abi/walletGen.json");
 
 const generateWallets = async (req, res) => {
   try {
-    const provider = new ethers.providers.JsonRpcProvider(process.env.provider);
-    const contractInstance = new ethers.Contract(
-      process.env.contractAddr,
-      abi,
-      provider
-    );
+    if (req.body.amountOfWallets <= 1000) {
+      const provider = new ethers.providers.JsonRpcProvider(
+        process.env.provider
+      );
+      const contractInstance = new ethers.Contract(
+        process.env.contractAddr,
+        abi,
+        provider
+      );
 
-    const userAddress = req.body.address;
-    var walletToBeGenerated = req.body.amountOfWallets;
-    console.log(walletToBeGenerated);
-    console.log(userAddress);
+      const userAddress = req.body.address;
+      var walletToBeGenerated = req.body.amountOfWallets;
+      console.log(walletToBeGenerated);
+      console.log(userAddress);
 
-    const checkPlan = await contractInstance.checkPlan(userAddress); // blockChain call
-    console.log("checkPlan ", checkPlan);
+      const checkPlan = await contractInstance.checkPlan(userAddress); // blockChain call
+      console.log("checkPlan ", checkPlan);
 
-    if (checkPlan) {
-      var wallets = generate(walletToBeGenerated);
-      res.status(200).json({ success: true, data: wallets });
-      return;
-    }
-
-    const lastRec = await contractInstance.getLastFeePaid(userAddress);
-    console.log("lastRec ", lastRec);
-    const latestPaidFeeTime = Number(lastRec[0]); //from BlockChain
-
-    console.log("latestPaidFeeTime ", latestPaidFeeTime);
-
-    if (latestPaidFeeTime == 0) {
-      res.status(500).json({ success: false, msg: "no fee paid" });
-      return;
-    }
-    if (walletToBeGenerated != Number(lastRec[1])) {
-      console.log(Number(lastRec[1]));
-      res.status(500).json({ success: false, msg: "invalid wallet request" });
-      return;
-    }
-
-    var findFeePaidRec = await model.generateWalletFeeRecords.find({
-      $and: [{ walletAddress: userAddress }, { timeStamp: latestPaidFeeTime }],
-    });
-    console.log("findFeePaidRec ", findFeePaidRec);
-    console.log("findFeePaidRec len  ", findFeePaidRec.length);
-
-    if (findFeePaidRec.length > 0) {
-      if (!findFeePaidRec[0].isUsed) {
+      if (checkPlan) {
         var wallets = generate(walletToBeGenerated);
-        findFeePaidRec[0].isUsed = true;
-        console.log("findFeePaidRec.save ", findFeePaidRec);
-        await findFeePaidRec.save();
         res.status(200).json({ success: true, data: wallets });
         return;
-      } else {
-        res
-          .status(500)
-          .json({ success: false, msg: "last fee paid already used" });
       }
-    } else {
-      const userClaim = new model.generateWalletFeeRecords({
-        walletAddress: userAddress,
-        timeStamp: latestPaidFeeTime,
-        isUsed: true,
-      });
-      await userClaim.save();
-      var wallets = generate(walletToBeGenerated);
-      res.status(200).json({ success: true, data: wallets });
-    }
 
-    // console.log("after math hoooooooooo");
+      const lastRec = await contractInstance.getLastFeePaid(userAddress);
+      console.log("lastRec ", lastRec);
+      const latestPaidFeeTime = Number(lastRec[0]); //from BlockChain
+
+      console.log("latestPaidFeeTime ", latestPaidFeeTime);
+
+      if (latestPaidFeeTime == 0) {
+        res.status(500).json({ success: false, msg: "no fee paid" });
+        return;
+      }
+      if (walletToBeGenerated != Number(lastRec[1])) {
+        console.log(Number(lastRec[1]));
+        res.status(500).json({ success: false, msg: "invalid wallet request" });
+        return;
+      }
+
+      var findFeePaidRec = await model.generateWalletFeeRecords.find({
+        $and: [
+          { walletAddress: userAddress },
+          { timeStamp: latestPaidFeeTime },
+        ],
+      });
+      console.log("findFeePaidRec ", findFeePaidRec);
+      console.log("findFeePaidRec len  ", findFeePaidRec.length);
+
+      if (findFeePaidRec.length > 0) {
+        if (!findFeePaidRec[0].isUsed) {
+          var wallets = generate(walletToBeGenerated);
+          findFeePaidRec[0].isUsed = true;
+          console.log("findFeePaidRec.save ", findFeePaidRec);
+          await findFeePaidRec.save();
+          res.status(200).json({ success: true, data: wallets });
+          return;
+        } else {
+          res
+            .status(500)
+            .json({ success: false, msg: "last fee paid already used" });
+        }
+      } else {
+        const userClaim = new model.generateWalletFeeRecords({
+          walletAddress: userAddress,
+          timeStamp: latestPaidFeeTime,
+          isUsed: true,
+        });
+        await userClaim.save();
+        var wallets = generate(walletToBeGenerated);
+        res.status(200).json({ success: true, data: wallets });
+      }
+
+      // console.log("after math hoooooooooo");
+    } else {
+      res.status(404).json({
+        success: false,
+        msg: "max limit to generate wallet in 1000",
+      });
+    }
   } catch (err) {
     res
       .status(500)
