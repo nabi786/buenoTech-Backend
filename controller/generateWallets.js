@@ -94,9 +94,7 @@ const generateWallets = async (req, res) => {
   function generate(amount) {
     var wallets = {
       publickeys: [],
-      privateKeys: [],
-      publickeys2: [],
-      privateKeys2: [],
+      privateKeys: []
     };
     for (var i = 0; i < amount; i++) {
       var acc = ethers.Wallet.createRandom();
