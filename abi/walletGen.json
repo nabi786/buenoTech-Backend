@@ -1,29 +1,31 @@
 [
   {
-    "inputs": [
-      { "internalType": "address", "name": "tokenAddr", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "tokenAddr", "type": "address" }],
     "stateMutability": "nonpayable",
     "type": "constructor"
   },
   {
     "anonymous": false,
     "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "previousOwner",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "newOwner",
-        "type": "address"
-      }
+      { "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }
     ],
     "name": "OwnershipTransferred",
     "type": "event"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "addr", "type": "address" }],
+    "name": "authorizeToUse",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "authorizedusers",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
     "inputs": [{ "internalType": "string", "name": "_plan", "type": "string" }],
@@ -33,28 +35,20 @@
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "addr", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "addr", "type": "address" }],
     "name": "checkPlan",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "addr", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "addr", "type": "address" }],
     "name": "getLastFeePaid",
     "outputs": [
       {
         "components": [
           { "internalType": "uint256", "name": "paidTime", "type": "uint256" },
-          {
-            "internalType": "uint256",
-            "name": "noOfWallets",
-            "type": "uint256"
-          },
+          { "internalType": "uint256", "name": "noOfWallets", "type": "uint256" },
           { "internalType": "uint256", "name": "amountPaid", "type": "uint256" }
         ],
         "internalType": "struct walletGenerator.variableFeeRecord",
@@ -66,18 +60,14 @@
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "addr", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "addr", "type": "address" }],
     "name": "getPlanExpiry",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "addr", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "addr", "type": "address" }],
     "name": "isRestrictedUser",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
@@ -105,9 +95,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "uint256", "name": "amountWallets", "type": "uint256" }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "amountWallets", "type": "uint256" }],
     "name": "payFee",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -119,98 +107,63 @@
     "outputs": [
       { "internalType": "uint256", "name": "price", "type": "uint256" },
       { "internalType": "uint256", "name": "timePeriod", "type": "uint256" },
-      {
-        "internalType": "contract IERC20",
-        "name": "feeToken",
-        "type": "address"
-      }
+      { "internalType": "contract IERC20", "name": "feeToken", "type": "address" }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "addr", "type": "address" }
-    ],
-    "name": "qualifyForFreeAccess",
+    "inputs": [{ "internalType": "address", "name": "user", "type": "address" }],
+    "name": "readAuthorizedUsers",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
   },
+  { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
   {
-    "inputs": [],
-    "name": "renounceOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "addr", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "addr", "type": "address" }],
     "name": "restrictUser",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "uint256", "name": "_newCost", "type": "uint256" }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "_newCost", "type": "uint256" }],
     "name": "setMonthlyPlanFee",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "_newToken", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "_newToken", "type": "address" }],
     "name": "setMonthlyPlanFeeToken",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "uint256", "name": "_newFee", "type": "uint256" }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "_newFee", "type": "uint256" }],
     "name": "setPayPerUsePlanFee",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "addr", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "addr", "type": "address" }],
     "name": "setPayPerUsePlanFeeToken",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "uint256", "name": "_newTokenQty", "type": "uint256" }
-    ],
-    "name": "setTokenQtyForFreeAccess",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "uint256", "name": "_newCost", "type": "uint256" }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "_newCost", "type": "uint256" }],
     "name": "setYearlyPlanFee",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "_newToken", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "_newToken", "type": "address" }],
     "name": "setYearlyPlanFeeToken",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -219,32 +172,26 @@
   {
     "inputs": [],
     "name": "token",
-    "outputs": [
-      { "internalType": "contract IERC20", "name": "", "type": "address" }
-    ],
+    "outputs": [{ "internalType": "contract IERC20", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "tokenQtyForFreeAccess",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "newOwner", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }],
     "name": "transferOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "addr", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "addr", "type": "address" }],
+    "name": "unAuthorizeToUse",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "addr", "type": "address" }],
     "name": "unRestrictUser",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -267,16 +214,12 @@
   {
     "inputs": [],
     "name": "variableFeeToken",
-    "outputs": [
-      { "internalType": "contract IERC20", "name": "", "type": "address" }
-    ],
+    "outputs": [{ "internalType": "contract IERC20", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "taxCollector", "type": "address" }
-    ],
+    "inputs": [{ "internalType": "address", "name": "taxCollector", "type": "address" }],
     "name": "withdrawAmount",
     "outputs": [],
     "stateMutability": "nonpayable",
