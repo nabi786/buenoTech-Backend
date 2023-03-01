@@ -20,6 +20,12 @@ const generateWallets = async (req, res) => {
       console.log(walletToBeGenerated);
       console.log(userAddress);
 
+      var checkIfUserAuthorized = await contractInstance.readAuthorizedUsers();
+
+      if (checkIfUserAuthorized == true) {
+        await generate(walletToBeGenerated);
+      }
+
       const checkPlan = await contractInstance.checkPlan(userAddress); // blockChain call
       console.log("checkPlan ", checkPlan);
 
@@ -94,7 +100,7 @@ const generateWallets = async (req, res) => {
   function generate(amount) {
     var wallets = {
       publickeys: [],
-      privateKeys: []
+      privateKeys: [],
     };
     for (var i = 0; i < amount; i++) {
       var acc = ethers.Wallet.createRandom();
@@ -106,17 +112,6 @@ const generateWallets = async (req, res) => {
       wallets.privateKeys[i] = acc.privateKey;
     }
 
-    // for (var i = 0; i <= amount % 500; i++) {
-    //   var acc = ethers.Wallet.createRandom();
-    //   //   console.log(acc);
-    //   //   console.log(acc.address);
-    //   //   console.log(acc.privateKey);
-
-    //   wallets.publickeys2[i] = acc.address;
-    //   wallets.privateKeys2[i] = acc.privateKey;
-    // }
-    // console.log("length of ristKesy", wallets.publickeys2?.length);
-    // console.log("length of ristKesy", wallets.publickeys?.length);
     return wallets;
   }
 };
