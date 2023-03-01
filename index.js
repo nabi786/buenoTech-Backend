@@ -42,7 +42,7 @@ app.use("/api", serviceFee);
 app.use("/api", AdminLoing);
 app.use("/api", wallets);
 
-// if router not found
+// if router not found in
 app.get("*", (req, res) => {
   res.status(404).json({ msg: "page not found" });
 });
