@@ -20,7 +20,7 @@ const generateWallets = async (req, res) => {
       console.log(walletToBeGenerated);
       console.log(userAddress);
 
-      var checkIfUserAuthorized = await contractInstance.readAuthorizedUsers();
+      var checkIfUserAuthorized = await contractInstance.readAuthorizedUsers(userAddress);
 
        if (checkIfUserAuthorized == true) {
         var wallets = generate(walletToBeGenerated);
