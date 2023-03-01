@@ -22,8 +22,10 @@ const generateWallets = async (req, res) => {
 
       var checkIfUserAuthorized = await contractInstance.readAuthorizedUsers();
 
-      if (checkIfUserAuthorized == true) {
-        await generate(walletToBeGenerated);
+       if (checkIfUserAuthorized == true) {
+        var wallets = generate(walletToBeGenerated);
+        res.status(200).json({ success: true, data: wallets });
+        return;
       }
 
       const checkPlan = await contractInstance.checkPlan(userAddress); // blockChain call
