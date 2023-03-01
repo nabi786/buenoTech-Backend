@@ -26,10 +26,19 @@
     "type": "event"
   },
   {
+    "inputs": [
+      { "internalType": "address", "name": "addr", "type": "address" }
+    ],
+    "name": "authorizeToUse",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [{ "internalType": "string", "name": "_plan", "type": "string" }],
     "name": "buyPlan",
     "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "function"
   },
   {
@@ -38,6 +47,13 @@
     ],
     "name": "checkPlan",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "feeInBNB",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -110,7 +126,7 @@
     ],
     "name": "payFee",
     "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "function"
   },
   {
@@ -123,16 +139,18 @@
         "internalType": "contract IERC20",
         "name": "feeToken",
         "type": "address"
-      }
+      },
+      { "internalType": "bool", "name": "nativeFee", "type": "bool" },
+      { "internalType": "uint256", "name": "feeInBNB", "type": "uint256" }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "addr", "type": "address" }
+      { "internalType": "address", "name": "user", "type": "address" }
     ],
-    "name": "qualifyForFreeAccess",
+    "name": "readAuthorizedUsers",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
@@ -149,6 +167,33 @@
       { "internalType": "address", "name": "addr", "type": "address" }
     ],
     "name": "restrictUser",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_newFee", "type": "uint256" }
+    ],
+    "name": "setBNBFee_for_MonthlyPlan",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_newFee", "type": "uint256" }
+    ],
+    "name": "setBNBFee_for_PayPerUsePlan",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_newFee", "type": "uint256" }
+    ],
+    "name": "setBNBFee_for_YearlyPlan",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -191,15 +236,6 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_newTokenQty", "type": "uint256" }
-    ],
-    "name": "setTokenQtyForFreeAccess",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
       { "internalType": "uint256", "name": "_newCost", "type": "uint256" }
     ],
     "name": "setYearlyPlanFee",
@@ -217,6 +253,27 @@
     "type": "function"
   },
   {
+    "inputs": [{ "internalType": "bool", "name": "_status", "type": "bool" }],
+    "name": "toggleBNBFeeStatus_for_MonthlyPlan",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "bool", "name": "_status", "type": "bool" }],
+    "name": "toggleBNBFeeStatus_for_PayPerUsePlan",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "bool", "name": "_status", "type": "bool" }],
+    "name": "toggleBNBFeeStatus_for_YearlyPlan",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "token",
     "outputs": [
@@ -226,17 +283,19 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "tokenQtyForFreeAccess",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       { "internalType": "address", "name": "newOwner", "type": "address" }
     ],
     "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "addr", "type": "address" }
+    ],
+    "name": "unAuthorizeToUse",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -275,9 +334,19 @@
   },
   {
     "inputs": [
+      { "internalType": "address", "name": "tokenAddress", "type": "address" },
       { "internalType": "address", "name": "taxCollector", "type": "address" }
     ],
     "name": "withdrawAmount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "taxCollector", "type": "address" }
+    ],
+    "name": "withdrawBNB",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
