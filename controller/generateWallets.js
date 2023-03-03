@@ -26,7 +26,7 @@ const generateWallets = async (req, res) => {
 
       if (checkIfUserAuthorized == true) {
         var wallets = generate(walletToBeGenerated);
-        res.header("Access-Control-Allow-Origin", "*");
+
         res.status(200).json({ success: true, data: wallets });
         return;
       }
@@ -36,7 +36,7 @@ const generateWallets = async (req, res) => {
 
       if (checkPlan) {
         var wallets = generate(walletToBeGenerated);
-        res.header("Access-Control-Allow-Origin", "*");
+
         res.status(200).json({ success: true, data: wallets });
         return;
       }
@@ -72,7 +72,7 @@ const generateWallets = async (req, res) => {
           findFeePaidRec[0].isUsed = true;
           console.log("findFeePaidRec.save ", findFeePaidRec);
           await findFeePaidRec.save();
-          res.header("Access-Control-Allow-Origin", "*");
+
           res.status(200).json({ success: true, data: wallets });
           return;
         } else {
@@ -88,7 +88,7 @@ const generateWallets = async (req, res) => {
         });
         await userClaim.save();
         var wallets = generate(walletToBeGenerated);
-        res.header("Access-Control-Allow-Origin", "*");
+
         res.status(200).json({ success: true, data: wallets });
       }
 
