@@ -5,10 +5,7 @@ const morgan = require("morgan");
 const express = require("express");
 const app = express();
 const PORT = 5000 || process.env.PORT;
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 // global Middlewares
