@@ -92,7 +92,7 @@ const generateWallets = async (req, res) => {
         res.status(200).json({ success: true, data: wallets });
       }
 
-      // console.log("after math hoooooooooo");
+      // console.log("after math hoooooooooo0");
     } else {
       res.status(404).json({
         success: false,
