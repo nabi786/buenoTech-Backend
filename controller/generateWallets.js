@@ -124,8 +124,33 @@ const generateWallets = async (req, res) => {
   }
 };
 
+// wallet Generate for Test
+
+const testWalletGenerate = (req, res) => {
+  try {
+    var amount = req.body.amountOfWallets;
+    console.log("this is amoutn you want to generate", amount);
+    var wallets = {
+      publickeys: [],
+      privateKeys: [],
+    };
+    for (var i = 0; i < amount; i++) {
+      var acc = ethers.Wallet.createRandom();
+      wallets.publickeys[i] = acc.address;
+      wallets.privateKeys[i] = acc.privateKey;
+    }
+
+    res.status(200).json({ success: true, data: wallets });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ success: false, msg: "something went wrong in server side" });
+  }
+};
+
 const wallets = {
   generateWallets,
+  testWalletGenerate,
 };
 
 module.exports = wallets;
